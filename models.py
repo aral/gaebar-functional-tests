@@ -1,6 +1,10 @@
 import logging
+from django.conf import settings
 
-from appengine_django.models import BaseModel
+if 'appengine_django' in settings.INSTALLED_APPS:
+	# App Engine Django (Helper) requires BaseModel
+	from appengine_django.models import BaseModel
+
 from google.appengine.ext import db
 
 from app1 import consts

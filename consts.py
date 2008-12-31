@@ -6,6 +6,13 @@ Test value constants for populating the database and testing against.
 import datetime
 from google.appengine.ext import db
 
+from django.conf import settings
+
+# App Engine Patch doesn't run in the root folder like 
+# App Engine Helper does.
+folder_prefix = ''
+if 'appenginepatcher' in settings.INSTALLED_APPS:
+	folder_prefix = '../../'
 
 STRING_PROPERTY = 'A lovely string.'
 BOOLEAN_PROPERTY = True
@@ -16,7 +23,7 @@ DATE_PROPERTY = datetime.date(2009, 1, 20)
 TIME_PROPERTY = datetime.time(12, 00, 00)
 LIST_PROPERTY = [1,2,3]
 STRING_LIST_PROPERTY = ['hello', 'world']
-BLOB_PROPERTY = db.Blob(open('images/pink-gae.png').read())
+BLOB_PROPERTY = db.Blob(open('%simages/pink-gae.png' % folder_prefix).read())
 TEXT_PROPERTY = 'Another lovely string.'
 CATEGORY_PROPERTY = db.Category("kittens")
 LINK_PROPERTY = db.Link('http://aralbalkan.com')
